@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-// import Register from '../pages/register';
 
 const Login = () => {
-    const [emailId, setEmail] = useState("utk@gmail.com");
-    const [password, setPassword] = useState("ukarsh");
+    const [emailId, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [error, setError] = useState('');
    const navigate = useNavigate();
 
