@@ -1,4 +1,4 @@
-import Dashboard from './../pages/Dashboard'
+// import Dashboard from './../pages/Dashboard'
 import { useNavigate, Outlet } from 'react-router-dom';
 
 const Header = () => {
@@ -24,6 +24,7 @@ const Header = () => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
           </label>
           <div className="px-4">Navbar Title</div>
+          <p onClick={() => navigate('/')} className="cursor-pointer">Logout</p>
         </nav>
         {/* Page content here */}
         <div className="p-4  justify-center items-center">
@@ -57,7 +58,7 @@ const Header = () => {
               <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings" onClick={handleClinic}>
                 {/* Settings icon */}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
-                <span className="is-drawer-close:hidden">clinician </span>
+                <span className="is-drawer-close:hidden">Clinician </span>
               </button>
             </li>
 

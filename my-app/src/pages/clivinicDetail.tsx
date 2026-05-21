@@ -46,7 +46,7 @@ const ClivinicDetail = () => {
                 specalist: specalist
             }, { withCredentials: true });
 
-            console.log('Login successful:', res.data);
+            console.log('Doctor data submitted successfully:', res.data);
             setError('');
 
             // Clear form
@@ -58,8 +58,8 @@ const ClivinicDetail = () => {
             fetchPatients()
         }
         catch (error: any) {
-            console.error('Login failed:', error);
-            setError(error.response?.data?.message || 'Login failed');
+            console.error('Failed to submit doctor data:', error);
+            setError(error.response?.data?.message || 'Failed to submit doctor data');
         }
     }
 
@@ -67,9 +67,9 @@ const ClivinicDetail = () => {
     return (
         <>
             <div className='flex justify-between'>
-                <div><h1 className="text-2xl">Visits</h1>
-                    <p>Track and manage all patient visits</p></div>
-                <button className="btn" onClick={() => document.getElementById('my_modal_2').showModal()}>+ New Patient</button></div>
+                <div><h1 className="text-2xl">Doctors Records</h1>
+                    <p>Track and manage all doctor details</p></div>
+                <button className="btn" onClick={() => document.getElementById('my_modal_2').showModal()}>+ New Doctor</button></div>
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box w-100">
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4">

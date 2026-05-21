@@ -11,11 +11,13 @@ const Dashboard = () => {
   const [dob, setDob] = useState('');
   const [contact, setContact] = useState('');
   const [email, setEmail] = useState('');
+  const [visitor, setVisitor] = useState([]);
 
 
   useEffect(() => {
     fetchDoctor();
     fetchPatients();
+    handleVisitor();
   }, []);
 
   const fetchDoctor = async () => {
@@ -60,11 +62,25 @@ const Dashboard = () => {
     }
   };
 
+  const handleVisitor = async () => {
+    try {
+      const res = await axios.get("http://localhost:7777/visitorData", {
+        withCredentials: true
+      })
+      console.log(res.data);
+      setVisitor(res.data);
+    }
+    catch (error: any) {
+      console.error('Failed to fetch:', error);
+    }
+  }
+
   return (
     <>
-      <h1 className="text-2xl">Visits</h1>
-      <p>Track and manage all patient visits</p>
-      <button className="btn" onClick={() => document.getElementById('my_modal_2').showModal()}>open modal</button>
+      <div className='flex justify-between'>
+                <div><h1 className="text-2xl">Dashboard</h1>
+      <p>Track and manage all patient visits</p></div>
+      <button className="btn text-end" onClick={() => document.getElementById('my_modal_2').showModal()}>New Visit</button></div>
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box w-100">
           <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4">
@@ -75,7 +91,7 @@ const Dashboard = () => {
             <select value={selectedDoctor} onChange={(e) => setSelectedDoctor(e.target.value)} className="select">
               <option value="" disabled>Select a doctor</option>
               {doctor.map((doc: any) => (
-                <option key={doc.emailId} value={doc.emailId}>{doc.firstName}</option>
+                <option key={doc.emailId} value={doc.firstName}>{doc.firstName}</option>
               ))}
             </select>
 
@@ -183,7 +199,7 @@ const Dashboard = () => {
           {/* head */}
           <thead>
             <tr>
-              <th></th>
+              <th>No.</th>
               <th>Patients</th>
               <th>Clinicians</th>
               <th>Type</th>
@@ -194,35 +210,19 @@ const Dashboard = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-              <td>Blue</td>
-              <td>Blue</td>
-              <td>Blue</td>
+            {visitor.map((visit:any, index:number)=>(
+            <tr key={index}>
+              <th >{index + 1}</th>
+              <td>{visit.patientName}</td>
+              <td>{visit.clinicianName}</td>
+              <td>{visit.visitType}</td>
+              <td>{visit.notes}</td>
+              <td>{visit.dateTime}</td>
+              <td>
+                <button className="btn btn-primary btn-sm">View</button>
+              </td>
             </tr>
-            {/* row 2 */}
-            <tr>
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-              <td>Purple</td>
-              <td>Purple</td>
-              <td>Purple</td>
-            </tr>
-            {/* row 3 */}
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-              <td>Red</td>
-              <td>Red</td>
-              <td>Red</td>
-            </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -56,7 +56,7 @@ const patientsDetails = () => {
                 dob: dob,
             }, { withCredentials: true });
 
-            console.log('Login successful:', res.data);
+            console.log('Patient data submitted successfully:', res.data);
             setError('');
             setShowToast(true);
 
@@ -65,16 +65,16 @@ const patientsDetails = () => {
             fetchPatients()
         }
         catch (error: any) {
-            console.error('Login failed:', error);
-            setError(error.response?.data?.message || 'Login failed');
+            console.error('Failed to submit patient data:', error);
+            setError(error.response?.data?.message || 'Failed to submit patient data');
         }
 
     }
     return (
         <>
             <div className='flex justify-between'>
-                <div><h1 className="text-2xl">Visits</h1>
-                    <p>Track and manage all patient visits</p></div>
+                <div><h1 className="text-2xl">Patient Records</h1>
+                    <p>Track and manage all patient details</p></div>
                 <button className="btn" onClick={() => document.getElementById('my_modal_2').showModal()}>+ New Patient</button></div>
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box w-100">
@@ -93,7 +93,7 @@ const patientsDetails = () => {
                         <label className="label">Email</label>
                         <input type="email" value={email} onChange={(e) => (setEmail(e.target.value))} className="input" placeholder="email" />
 
-                        <button className="btn btn-neutral mt-4" onClick={handleData}>Login</button>
+                        <button className="btn btn-neutral mt-4" onClick={handleData}>Add Patient</button>
                         {error && <div className="alert alert-error mt-4"><span>{error}</span></div>}
                     </fieldset>
                 </div>
