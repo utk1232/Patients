@@ -7,11 +7,20 @@ const ClivinicDetail = () => {
     const [emailId, setEmailId] = useState('');
     const [specalist, setSpecalist] = useState('');
     const [error, setError] = useState('');
+    const [showToast, setShowToast] = useState(true);
     // // const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = 'Clinicians - Qkonnect';
         fetchPatients()
     }, []);
+
+    useEffect(() => {
+        if (showToast) {
+            const timer = setTimeout(() => setShowToast(false), 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [showToast]);
 
     const fetchPatients = async () => {
         try {
@@ -27,7 +36,7 @@ const ClivinicDetail = () => {
 
     const handleDelete = async (emailId: string) => {
         try {
-               console.log('Delete doctor with email:', emailId);
+            console.log('Delete doctor with email:', emailId);
             await axios.delete(`http://localhost:7777/doctorDetails/${emailId}`, {
                 withCredentials: true
             })
@@ -48,7 +57,7 @@ const ClivinicDetail = () => {
 
             console.log('Doctor data submitted successfully:', res.data);
             setError('');
-
+            setShowToast(true);
             // Clear form
             setName('');
             setEmailId('');
@@ -60,9 +69,8 @@ const ClivinicDetail = () => {
         catch (error: any) {
             console.error('Failed to submit doctor data:', error);
             setError(error.response?.data?.message || 'Failed to submit doctor data');
-        }
+        }  
     }
-
 
     return (
         <>
@@ -97,7 +105,7 @@ const ClivinicDetail = () => {
                 </form>
             </dialog>
 
-            {/* Display patient details */}
+            {/* Display doctor details */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                 {patients.map((patient: any) => (
                     <div key={patient._id} className="card bg-base-200 shadow-md">
@@ -108,12 +116,18 @@ const ClivinicDetail = () => {
                             </div>
                             <p><strong>Email:</strong> {patient.emailId}</p>
                             <p><strong>Specialist:</strong> {patient.specalist}</p>
-                          
+
                         </div>
                     </div>
                 ))}
             </div>
-
+            {showToast && (
+                <div className="toast">
+                    <div className="alert alert-success">
+                        <span>New Doctor Added.</span>
+                    </div>
+                </div>
+            )}
 
         </>
     )

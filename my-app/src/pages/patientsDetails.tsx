@@ -13,12 +13,13 @@ const patientsDetails = () => {
     // const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = 'Patient Details - Qkonnect';
         fetchPatients()
     }, []);
 
     useEffect(() => {
         if (showToast) {
-            const timer = setTimeout(() => setShowToast(false), 3000);
+            const timer = setTimeout(() => setShowToast(false), 5000);
             return () => clearTimeout(timer);
         }
     }, [showToast]);
@@ -59,6 +60,10 @@ const patientsDetails = () => {
             console.log('Patient data submitted successfully:', res.data);
             setError('');
             setShowToast(true);
+            setName('');
+            setEmail('');
+            setDob('');
+            setContact('');
 
             document.getElementById('my_modal_2').close();
             // navigate('/dashboard')
@@ -98,7 +103,7 @@ const patientsDetails = () => {
                     </fieldset>
                 </div>
                 <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
+                    <button><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
                 </form>
             </dialog>
             {showToast && (

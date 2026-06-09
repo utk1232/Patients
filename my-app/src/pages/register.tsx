@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -9,6 +9,10 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = 'Register - Qkonnect';
+    }, []);
 
     const handleRegister = async () => {
         try {
@@ -51,7 +55,7 @@ const Register = () => {
                            
                             <label className="label">Email</label>
                             <input type="email" value={emailId} onChange={(e) => (setEmailId(e.target.value))} className="input" placeholder="Email" />
-                            <label className="label">Password</label>
+                            <label className="label">Password</label>{password}
                             <input type="password" value={password} onChange={(e) => (setPassword(e.target.value))} className="input" placeholder="Password" />
 
                             <button className="btn btn-neutral mt-4" onClick={handleRegister}>
